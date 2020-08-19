@@ -1,0 +1,51 @@
+﻿@page "/logging"
+@using Serilog
+@using Microsoft.Extensions.Logging
+@inject ILogger<Logging> Logger
+
+<h3>Logging</h3>
+
+<div class="row mt-1">
+    <button class="btn btn-info" @onclick="LogWithConsoleWriteLine">Log with Console.WriteLine()</button>
+</div>
+<div class="row mt-1">
+    <button class="btn btn-secondary" @onclick="LogWithILogger">Log with ILogger</button>
+</div>
+<div class="row mt-1">
+    <button class="btn btn-primary" @onclick="LogMessage">Log with Serilog</button>
+</div>
+<div class="row mt-1">
+    <button class="btn btn-warning" @onclick="LogWarning">Log with Serilog</button>
+</div>
+<div class="row mt-1">
+    <button class="btn btn-danger" @onclick="LogError">Log with Serilog</button>
+</div>
+
+@code {
+
+    private void LogWithConsoleWriteLine()
+    {
+        Console.WriteLine("Console Message");
+    }
+
+    private void LogWithILogger()
+    {
+        Logger.LogWarning("Warning from ILogger");
+    }
+
+    private void LogMessage()
+    {
+        Log.Information("Information Message");
+    }
+
+    private void LogWarning()
+    {
+        Log.Warning("Warning Message");
+    }
+
+    private void LogError()
+    {
+        Log.Error("OMG its on fire!");
+    }
+    
+}

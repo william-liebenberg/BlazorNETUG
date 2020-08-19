@@ -1,0 +1,28 @@
+@page "/jsinterop"
+@inject IJSRuntime JSRuntime;
+
+<h1>Call JavaScript Function Example</h1>
+
+<div class="row mt-4">
+    <button type="button" class="btn btn-primary" @onclick="CallJs">
+        Call a JS function
+    </button>
+</div>
+
+@if(!string.IsNullOrWhiteSpace(jsText))
+{
+    <div class="row mt-4">
+        <p>
+            <span>JavaScript said: @jsText</span>
+        </p>
+    </div>
+}
+
+@code {
+    private string jsText = string.Empty;
+
+    private async Task CallJs()
+    {
+        jsText = await JSRuntime.InvokeAsync<string>("ReplyToDotNet");
+    }
+}

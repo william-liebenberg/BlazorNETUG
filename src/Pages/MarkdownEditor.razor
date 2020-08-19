@@ -1,0 +1,40 @@
+﻿@page "/MarkdownEditor"
+@using Markdig
+@inject MarkdownPipeline Pipeline
+@using Serilog
+
+<h2>Blazor Markdown Editor in C#</h2>
+
+<div class="row" style="height: 600px;">
+    <div class="col-6 h-100">
+        <textarea class="form-control h-100" @bind-value="MarkdownText" @bind-value:event="oninput"></textarea>
+    </div>
+    <div class="col-6 h-100">
+        @((MarkupString) HtmlToRender)
+    </div> 
+</div>
+
+@code {
+    public string MarkdownText { get; set; } = string.Empty;
+    // public string HtmlToRender => Markdown.ToHtml(MarkdownText ?? string.Empty, Pipeline);
+
+    private string _html = string.Empty;
+    public string HtmlToRender
+    {
+        get
+        {
+            try
+            {
+                _html = Markdown.ToHtml(MarkdownText ?? string.Empty, Pipeline);
+                return _html;
+            }
+            catch (NullReferenceException nrx)
+            {
+                // todo: Log the errors!
+                Log.Error(nrx, "Couldn't render markdown text!");
+            }
+
+            return _html;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+﻿@page "/handleCallbacks"
+
+<h3>HandleCallbacks</h3>
+
+<div class="row mt-4">
+    <InvokeCallback Title="Product 1"
+                    Description="My first product" 
+                    OnClick=ShipIt></InvokeCallback>
+</div>
+<div class="row mt-4">
+    <InvokeCallback Title="Product 2"
+                    Description="My second product"
+                    OnClick=ShipIt></InvokeCallback>
+</div>
+
+@code {
+
+    public void ShipIt(string product)
+    {
+        Console.WriteLine("Shipping: " + product ?? "Nothing?");
+    }
+}

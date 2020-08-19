@@ -1,0 +1,19 @@
+﻿@page "/invokecallback"
+
+<div>
+    <span>@Title</span>
+    <span>@Description</span>
+    <button class="btn btn-primary" 
+            @onclick="@(() => OnClick.InvokeAsync(Title))" >Click me</button>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = "Product detail";
+
+    [Parameter]
+    public string Description { get; set; } ="description";
+
+    [Parameter]
+    public EventCallback<string> OnClick { get; set; }
+}

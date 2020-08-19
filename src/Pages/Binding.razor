@@ -1,0 +1,17 @@
+@page "/binding"
+
+<h1>@Title</h1>
+
+<p>
+    <span>Changes when the input box loses focus.</span>
+    <input type="text" @bind="Title" />
+</p>
+
+<p>
+    <span>Changes when the input box receives input.</span>
+    <input type="text" @bind="Title" @bind:event="oninput" />
+</p>
+
+@code {
+    private string Title = "Data Binding";
+}

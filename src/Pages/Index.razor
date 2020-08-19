@@ -1,0 +1,57 @@
+﻿@page "/"
+@using Markdig
+@inject MarkdownPipeline Pipeline
+@using Serilog
+
+<div class="col-12 h-100">
+    @((MarkupString) HtmlToRender)
+</div> 
+
+@code {
+    private string MarkdownText { get; set; } = @"
+## Hi everyone 👋
+
+My name is William Liebenberg
+
+Fun facts about me:
+- 👨‍💻 I work at SSW - check out my other profiles:
+  - SSW Peolpe: [https://www.ssw.com.au/people/william-liebenberg](https://www.ssw.com.au/people/william-liebenberg)
+  - GitHub: [https://github.com/william-liebenberg](https://github.com/william-liebenberg)
+- 🔭 I’m currently working on [SophieBot](https://sswsophie.com)
+- 👶 I'm a dad to a wonderful little boy!
+- 💬 Ask me about:
+  - [Azure Superpowers](https://www.ssw.com.au/ssw/Events/Training/Azure-Superpowers-Tour.aspx)
+  - [Blazor](https://blazor.net)
+  - [Clean Architecture](https://rules.ssw.com.au/rules-to-better-clean-architecture)
+  - [Kubernetes](https://www.ssw.com.au/ssw/Consulting/Kubernetes.aspx)
+  - [SpendOps](https://azuregems.io/spendops-with-azure-cosmos-db/)
+- 📫 How to reach me:
+  - Blog: [azuregems.io](https://azuregems.io)
+  - Twitter: [@William_DotNet](https://twitter.com/William_DotNet)
+  - Email: [williamliebenberg@ssw.com.au](mailto:williamliebenberg@ssw.com.au)
+- 😄 Pronouns: He/Him
+- ⚡ Fun fact: The moon isn't really made of cheese
+
+
+
+You can get all the code for this app from: [GitHub](https://github.com/william-liebenberg/BlazorNETUG)
+    ";
+    
+    private string _html = string.Empty;
+    public string HtmlToRender
+    {
+        get
+        {
+            try
+            {
+                _html = Markdown.ToHtml(MarkdownText ?? string.Empty, Pipeline);
+                return _html;
+            }
+            catch (NullReferenceException nrx)
+            {
+            }
+
+            return _html;
+        }
+    }
+}
